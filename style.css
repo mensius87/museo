@@ -40,15 +40,25 @@ body{
 .hero-overlay{position:absolute;inset:0;background:var(--overlay-hero)}
 
 /* =======================
-   NAVBAR + HAMBURGER
+   NAVBAR (FIJO / STICKY)
 ======================= */
 .navbar{
-  position:absolute;top:0;left:0;right:0;
-  padding:22px 10%;
-  display:flex;justify-content:space-between;align-items:center;
-  z-index:10;
+  position:fixed;                 /* <-- CLAVE */
+  top:0; left:0; right:0;
+  padding:18px 10%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+
+  /* Fondo premium sutil siempre (evita que se pierda texto) */
+  background:rgba(10,10,10,.38);
+  backdrop-filter: blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
+
 .logo{font-weight:600;letter-spacing:1px;font-size:1.05rem}
+
 .navlinks{
   list-style:none;
   display:flex;
@@ -63,7 +73,7 @@ body{
 }
 .navlinks a:hover{opacity:1}
 
-/* Hamburger (solo móvil) */
+/* Hamburger (móvil) */
 .hamburger{
   display:none;
   width:44px;height:44px;
@@ -74,8 +84,7 @@ body{
 }
 .hamburger span{
   display:block;
-  width:20px;
-  height:2px;
+  width:20px;height:2px;
   background:#fff;
   margin:5px auto;
   transition:transform .2s ease, opacity .2s ease;
@@ -84,12 +93,11 @@ body{
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-/* Menú móvil desplegable */
 @media (max-width: 720px){
   .hamburger{display:block}
   .navlinks{
     position:absolute;
-    top:70px;
+    top:66px;
     right:10%;
     left:10%;
     display:none;
@@ -116,14 +124,23 @@ body{
   justify-content:center;
   text-align:center;
   padding:0 10%;
+  /* Empuja un poco hacia abajo para que el navbar fijo no “moleste” visualmente */
+  padding-top:60px;
 }
+
 .hero-content h1{
   font-size:clamp(2.4rem,4.2vw,4rem);
   letter-spacing:1px;
   margin-bottom:14px;
 }
 .hero-content p{color:var(--muted);margin-bottom:26px}
-.hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+
+.hero-actions{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
 .btn{
   display:inline-block;
   padding:12px 26px;
@@ -196,7 +213,11 @@ body{
   transform:scale(1.02);
   transition:transform .6s ease;
 }
-.collection-card .overlay{position:absolute;inset:0;background:var(--overlay-card);transition:background .35s ease}
+.collection-card .overlay{
+  position:absolute;inset:0;
+  background:var(--overlay-card);
+  transition:background .35s ease
+}
 .collection-card .label{
   position:absolute;left:18px;right:18px;bottom:18px;
   display:flex;justify-content:space-between;align-items:baseline;gap:12px;
@@ -231,9 +252,8 @@ body{
 /* =======================
    PÁGINA COLECCIÓN
 ======================= */
-body.page .navbar{display:none}
 .page-head{
-  padding:34px 10% 22px;
+  padding:90px 10% 22px; /* más alto porque navbar es fijo */
   border-bottom:1px solid rgba(255,255,255,.08);
   background:#101010;
 }
@@ -337,8 +357,8 @@ body.page .navbar{display:none}
 
 /* Responsive */
 @media (max-width: 640px){
-  .navbar{padding:18px 7%}
+  .navbar{padding:16px 7%}
   .section{padding:72px 7%}
-  .page-head{padding:28px 7% 18px}
+  .page-head{padding:84px 7% 18px}
   .gallery{padding:32px 7%}
 }
