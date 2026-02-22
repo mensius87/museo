@@ -6,107 +6,144 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: #ffffff;
-  color: #111;
+  background: #0e0e0e;
+  color: #f5f5f5;
   line-height: 1.6;
 }
 
+.nav {
+  position: fixed;
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(14,14,14,0.9);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+}
+
+.menu a {
+  margin-left: 25px;
+  text-decoration: none;
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.menu a:hover {
+  color: #fff;
+}
+
 .hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 80px 20px 40px;
+  background: linear-gradient(to bottom, #0e0e0e, #151515);
 }
 
 .hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-size: 3.5rem;
+  margin-bottom: 10px;
 }
 
 .hero p {
-  margin-top: 10px;
-  font-size: 1rem;
-  color: #555;
+  color: #aaa;
+  margin-bottom: 30px;
 }
 
-.gallery {
-  width: 90%;
-  max-width: 1200px;
-  margin: 40px auto;
+.btn {
+  padding: 12px 28px;
+  border: 1px solid #fff;
+  text-decoration: none;
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.collections {
+  padding: 120px 8%;
+}
+
+.collections h2 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 60px;
+  font-size: 2rem;
+}
+
+.collection-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px;
+  gap: 30px;
 }
 
-.card {
+.collection {
+  position: relative;
   overflow: hidden;
-  transition: transform 0.4s ease;
+  cursor: pointer;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-}
-
-.card img {
+.collection img {
   width: 100%;
-  height: auto;
   display: block;
-  transition: opacity 0.4s ease;
+  transition: transform 0.6s ease;
 }
 
-.card:hover img {
-  opacity: 0.9;
+.collection:hover img {
+  transform: scale(1.05);
 }
 
-.info {
-  margin-top: 15px;
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
 }
 
-.info h2 {
+.overlay h3 {
   font-family: 'Playfair Display', serif;
   font-size: 1.2rem;
-  margin-bottom: 5px;
-}
-
-.info p {
-  font-size: 0.9rem;
-  color: #666;
 }
 
 .about, .contact {
-  width: 80%;
+  padding: 120px 8%;
   max-width: 800px;
-  margin: 80px auto;
-  text-align: center;
 }
 
 .about h2,
 .contact h2 {
   font-family: 'Playfair Display', serif;
-  margin-bottom: 20px;
-  font-size: 1.8rem;
+  margin-bottom: 30px;
+  font-size: 2rem;
 }
 
 .about p,
 .contact p {
-  font-size: 1rem;
-  color: #444;
+  color: #ccc;
 }
 
 .contact a {
-  color: #000;
+  color: #fff;
   text-decoration: none;
-  border-bottom: 1px solid #000;
-  transition: opacity 0.3s ease;
-}
-
-.contact a:hover {
-  opacity: 0.6;
+  border-bottom: 1px solid #fff;
 }
 
 footer {
   text-align: center;
-  padding: 40px 20px;
-  font-size: 0.8rem;
-  color: #777;
+  padding: 60px;
+  color: #666;
+  font-size: 0.9rem;
 }
