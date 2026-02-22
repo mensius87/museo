@@ -26,7 +26,7 @@
   <header class="page-head">
     <div class="page-title">
       <h1 id="collectionTitle">Colección</h1>
-      <p id="collectionDesc">Pulsa una miniatura para ampliar.</p>
+      <p id="collectionDesc">Pulsa una miniatura para ampliar. Usa la rueda para zoom.</p>
       <a class="backlink" href="index.html#colecciones">← Volver a colecciones</a>
     </div>
   </header>
@@ -42,7 +42,8 @@
       <button class="lb-next" id="lbNext" type="button" aria-label="Siguiente">→</button>
       <button class="lb-close" id="lbClose" type="button" aria-label="Cerrar">✕</button>
 
-      <div class="lightbox-media">
+      <!-- Contenedor de zoom -->
+      <div class="lightbox-media" id="lbViewport">
         <img id="lbImg" src="" alt="">
       </div>
 
