@@ -1,85 +1,173 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Padre de Elisa</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <nav class="navbar">
-    <div class="logo">Padre de Elisa</div>
-    <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#colecciones">Colecciones</a></li>
-        <li><a href="#">Contacto</a></li>
-    </ul>
-</nav>
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    background: #0f0f0f;
+    color: white;
+}
 
-<header class="hero">
-    <div class="slideshow">
-        <img src="images/1.jpg" class="active">
-        <img src="images/2.jpg">
-        <img src="images/3.jpg">
-    </div>
+/* =======================
+   NAVBAR
+======================= */
 
-    <div class="hero-overlay"></div>
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 25px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
 
-    <div class="hero-content">
-        <h1>Padre de Elisa</h1>
-        <p>Exploración artística en cinco colecciones</p>
-        <a href="#colecciones" class="btn">Ver Colecciones</a>
-    </div>
-</header>
+.navbar .logo {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
 
-<section id="colecciones" class="colecciones">
-    <h2>Colecciones</h2>
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
 
-    <div class="grid">
-        <div class="card">
-            <img src="images/1.jpg">
-            <div class="overlay"></div>
-            <h3>Colección I</h3>
-        </div>
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    transition: 0.3s ease;
+}
 
-        <div class="card">
-            <img src="images/2.jpg">
-            <div class="overlay"></div>
-            <h3>Colección II</h3>
-        </div>
+.navbar a:hover {
+    opacity: 1;
+}
 
-        <div class="card">
-            <img src="images/3.jpg">
-            <div class="overlay"></div>
-            <h3>Colección III</h3>
-        </div>
+/* =======================
+   HERO
+======================= */
 
-        <div class="card">
-            <img src="images/4.jpg">
-            <div class="overlay"></div>
-            <h3>Colección IV</h3>
-        </div>
+.hero {
+    position: relative;
+    height: 75vh;
+    overflow: hidden;
+}
 
-        <div class="card">
-            <img src="images/5.jpg">
-            <div class="overlay"></div>
-            <h3>Colección V</h3>
-        </div>
-    </div>
-</section>
+.slideshow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
 
-<script>
-const slides = document.querySelectorAll(".slideshow img");
-let index = 0;
+.slideshow img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
 
-setInterval(() => {
-    slides[index].classList.remove("active");
-    index = (index + 1) % slides.length;
-    slides[index].classList.add("active");
-}, 4000);
-</script>
+.slideshow img.active {
+    opacity: 1;
+}
 
-</body>
-</html>
+.hero-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.75);
+}
 
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.hero p {
+    margin-bottom: 30px;
+    opacity: 0.85;
+}
+
+.btn {
+    padding: 12px 28px;
+    border: 1px solid white;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    background: white;
+    color: black;
+}
+
+/* =======================
+   COLECCIONES
+======================= */
+
+.colecciones {
+    padding: 80px 10%;
+}
+
+.colecciones h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    height: 280px;
+    cursor: pointer;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.card:hover img {
+    transform: scale(1.08);
+}
+
+.card .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.65);
+}
+
+.card h3 {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 2;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
