@@ -1,65 +1,92 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nombre del Artista</title>
-  <meta name="description" content="Galería de obras de Nombre del Artista" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Padre de Elisa | Galería</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Galería artística de Padre de Elisa. Pintura contemporánea.">
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<nav class="nav">
+  <div class="logo">Padre de Elisa</div>
+  <div class="menu">
+    <a href="#colecciones">Colecciones</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</nav>
+
 <header class="hero">
-  <h1>Nombre del Artista</h1>
-  <p>Pintura contemporánea</p>
+  <div class="hero-content">
+    <h1>Padre de Elisa</h1>
+    <p>Pintura contemporánea</p>
+    <a href="#colecciones" class="btn">Explorar colecciones</a>
+  </div>
 </header>
 
-<section class="gallery">
+<section id="colecciones" class="collections">
+  <h2>Colecciones</h2>
 
-  <div class="card">
-    <img src="images/cuadro1.jpg" alt="Título de la obra 1">
-    <div class="info">
-      <h2>Título de la obra</h2>
-      <p>Acrílico sobre lienzo · 2024 · 80x60cm</p>
+  <div class="collection-grid">
+
+    <div class="collection">
+      <img src="images/coleccion1.jpg" alt="Colección I">
+      <div class="overlay">
+        <h3>Colección I</h3>
+      </div>
     </div>
-  </div>
 
-  <div class="card">
-    <img src="images/cuadro2.jpg" alt="Título de la obra 2">
-    <div class="info">
-      <h2>Título de la obra</h2>
-      <p>Óleo sobre tabla · 2023 · 100x70cm</p>
+    <div class="collection">
+      <img src="images/coleccion2.jpg" alt="Colección II">
+      <div class="overlay">
+        <h3>Colección II</h3>
+      </div>
     </div>
-  </div>
 
-  <div class="card">
-    <img src="images/cuadro3.jpg" alt="Título de la obra 3">
-    <div class="info">
-      <h2>Título de la obra</h2>
-      <p>Técnica mixta · 2022 · 60x60cm</p>
+    <div class="collection">
+      <img src="images/coleccion3.jpg" alt="Colección III">
+      <div class="overlay">
+        <h3>Colección III</h3>
+      </div>
     </div>
-  </div>
 
+    <div class="collection">
+      <img src="images/coleccion4.jpg" alt="Colección IV">
+      <div class="overlay">
+        <h3>Colección IV</h3>
+      </div>
+    </div>
+
+    <div class="collection">
+      <img src="images/coleccion5.jpg" alt="Colección V">
+      <div class="overlay">
+        <h3>Colección V</h3>
+      </div>
+    </div>
+
+  </div>
 </section>
 
-<section class="about">
+<section id="sobre" class="about">
   <h2>Sobre el artista</h2>
   <p>
-    Breve texto sobre el artista. Influencias, estilo, trayectoria,
-    exposiciones relevantes o cualquier información que aporte valor.
+    Padre de Elisa desarrolla una obra marcada por la exploración del color,
+    la materia y la emoción contenida. Sus piezas dialogan con el espacio y
+    el espectador, proponiendo una experiencia contemplativa.
   </p>
 </section>
 
-<section class="contact">
+<section id="contacto" class="contact">
   <h2>Contacto</h2>
   <p>Email: <a href="mailto:correo@email.com">correo@email.com</a></p>
-  <p>Instagram: <a href="#">@usuario</a></p>
 </section>
 
 <footer>
-  <p>© 2026 Nombre del Artista</p>
+  <p>© 2026 Padre de Elisa</p>
 </footer>
 
 </body>
