@@ -3,15 +3,15 @@
   const DATA = window.MUSEO_DATA;
   if (!DATA) return;
 
-  function qs(sel) { return document.querySelector(sel); }
-  function qsa(sel) { return Array.from(document.querySelectorAll(sel)); }
+  function qs(sel, root=document) { return root.querySelector(sel); }
+  function qsa(sel, root=document) { return Array.from(root.querySelectorAll(sel)); }
   function getParam(name) {
     const url = new URL(window.location.href);
     return url.searchParams.get(name);
   }
 
   // Navbar scrolled effect
-  const navbar = qs("#navbar");
+  const navbar = document.getElementById("navbar");
   if (navbar) {
     const onScroll = () => {
       if (window.scrollY > 20) navbar.classList.add("scrolled");
@@ -21,54 +21,60 @@
     onScroll();
   }
 
-  // Menú móvil
-  const hamburger = qs("#hamburger");
-  const navMenu = qs("#navMenu");
-  if (hamburger && navMenu) {
-    function closeMenu() {
-      navMenu.classList.remove("open");
-      hamburger.classList.remove("open");
-      hamburger.setAttribute("aria-expanded", "false");
+  // Menú móvil: robusto (funciona en index y coleccion)
+  const navRoot = qs("[data-nav]");
+  if (navRoot) {
+    const hamburger = qs("[data-hamburger]", navRoot);
+    const navMenu = qs("[data-navmenu]", navRoot);
+
+    if (hamburger && navMenu) {
+      function closeMenu() {
+        navMenu.classList.remove("open");
+        hamburger.classList.remove("open");
+        hamburger.setAttribute("aria-expanded", "false");
+      }
+      function toggleMenu() {
+        const open = navMenu.classList.toggle("open");
+        hamburger.classList.toggle("open", open);
+        hamburger.setAttribute("aria-expanded", String(open));
+      }
+
+      hamburger.addEventListener("click", toggleMenu);
+      qsa("a", navMenu).forEach(a => a.addEventListener("click", closeMenu));
+      window.addEventListener("resize", () => { if (window.innerWidth > 720) closeMenu(); });
     }
-    function toggleMenu() {
-      const open = navMenu.classList.toggle("open");
-      hamburger.classList.toggle("open", open);
-      hamburger.setAttribute("aria-expanded", String(open));
-    }
-    hamburger.addEventListener("click", toggleMenu);
-    qsa("#navMenu a").forEach(a => a.addEventListener("click", closeMenu));
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 720) closeMenu();
-    });
   }
 
   // LANDING
-  const slideshow = qs("#slideshow");
-  const collectionsGrid = qs("#collectionsGrid");
+  const slideshow = document.getElementById("slideshow");
+  const collectionsGrid = document.getElementById("collectionsGrid");
+
   if (slideshow && collectionsGrid) {
-    const brand = qs("#brand");
-    const heroTitle = qs("#heroTitle");
-    const heroTagline = qs("#heroTagline");
-    const footerArtist = qs("#footerArtist");
+    const brand = document.getElementById("brand");
+    const heroTitle = document.getElementById("heroTitle");
+    const heroTagline = document.getElementById("heroTagline");
+    const footerArtist = document.getElementById("footerArtist");
 
     if (brand) brand.textContent = DATA.artist;
     if (heroTitle) heroTitle.textContent = DATA.artist;
     if (heroTagline) heroTagline.textContent = DATA.tagline;
     if (footerArtist) footerArtist.textContent = DATA.artist;
 
-    slideshow.innerHTML = DATA.heroSlides
+    slideshow.innerHTML = (DATA.heroSlides || [])
       .map((src, idx) => `<img src="${src}" class="${idx === 0 ? "active" : ""}" alt="">`)
       .join("");
 
-    const slides = qsa("#slideshow img");
+    const slides = qsa("img", slideshow);
     let i = 0;
-    setInterval(() => {
-      slides[i].classList.remove("active");
-      i = (i + 1) % slides.length;
-      slides[i].classList.add("active");
-    }, 4500);
+    if (slides.length > 1) {
+      setInterval(() => {
+        slides[i].classList.remove("active");
+        i = (i + 1) % slides.length;
+        slides[i].classList.add("active");
+      }, 4500);
+    }
 
-    collectionsGrid.innerHTML = DATA.collections.map(c => {
+    collectionsGrid.innerHTML = (DATA.collections || []).map(c => {
       const href = `coleccion.html?c=${encodeURIComponent(c.id)}`;
       return `
         <a class="collection-card" href="${href}">
@@ -76,7 +82,6 @@
           <div class="overlay"></div>
           <div class="label">
             <h3>${c.name}</h3>
-            <span>Ver obras</span>
           </div>
         </a>
       `;
@@ -84,21 +89,21 @@
   }
 
   // COLECCIÓN + LIGHTBOX + ZOOM
-  const galleryGrid = qs("#galleryGrid");
-  const collectionTitle = qs("#collectionTitle");
-  const collectionDesc = qs("#collectionDesc");
-  const pageBrand = qs("#pageBrand");
+  const galleryGrid = document.getElementById("galleryGrid");
+  const collectionTitle = document.getElementById("collectionTitle");
+  const collectionDesc = document.getElementById("collectionDesc");
+  const pageBrand = document.getElementById("pageBrand");
 
   if (galleryGrid && collectionTitle) {
     if (pageBrand) pageBrand.textContent = DATA.artist;
 
-    const cId = getParam("c") || DATA.collections[0]?.id;
-    const col = DATA.collections.find(x => x.id === cId) || DATA.collections[0];
-    const works = DATA.works.filter(w => w.collectionId === col.id);
+    const cId = getParam("c") || (DATA.collections?.[0]?.id ?? "");
+    const col = (DATA.collections || []).find(x => x.id === cId) || (DATA.collections || [])[0];
+    const works = (DATA.works || []).filter(w => w.collectionId === col.id);
 
     document.title = `${col.name} | ${DATA.artist}`;
     collectionTitle.textContent = col.name;
-    collectionDesc.textContent = col.description || "Pulsa una miniatura para ampliar.";
+    if (collectionDesc) collectionDesc.textContent = col.description || "Pulsa una miniatura para ampliar.";
 
     galleryGrid.innerHTML = works.map((w, idx) => `
       <div class="thumb" data-idx="${idx}">
@@ -106,14 +111,14 @@
       </div>
     `).join("");
 
-    const lb = qs("#lightbox");
-    const lbImg = qs("#lbImg");
-    const lbLeft = qs("#lbLeft");
-    const lbRight = qs("#lbRight");
-    const lbClose = qs("#lbClose");
-    const lbPrev = qs("#lbPrev");
-    const lbNext = qs("#lbNext");
-    const viewport = qs("#lbViewport");
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbLeft = document.getElementById("lbLeft");
+    const lbRight = document.getElementById("lbRight");
+    const lbClose = document.getElementById("lbClose");
+    const lbPrev = document.getElementById("lbPrev");
+    const lbNext = document.getElementById("lbNext");
+    const viewport = document.getElementById("lbViewport");
 
     let idx = 0;
 
@@ -128,7 +133,6 @@
     function applyTransform() {
       lbImg.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
     }
-
     function resetZoom() {
       scale = 1;
       tx = 0;
@@ -137,11 +141,10 @@
     }
 
     function clampPan() {
-      // Mantener el pan razonable (simple: limitar a +/- mitad del viewport)
-      if (!viewport) return;
+      // Pan simple: limita desplazamiento según zoom y viewport
       const rect = viewport.getBoundingClientRect();
-      const maxX = rect.width * 0.5;
-      const maxY = rect.height * 0.5;
+      const maxX = (rect.width * (scale - 1)) / 2;
+      const maxY = (rect.height * (scale - 1)) / 2;
       tx = Math.max(-maxX, Math.min(maxX, tx));
       ty = Math.max(-maxY, Math.min(maxY, ty));
     }
@@ -157,8 +160,6 @@
 
       lb.classList.add("open");
       document.body.style.overflow = "hidden";
-
-      // Reset zoom al abrir
       resetZoom();
     }
 
@@ -168,11 +169,10 @@
       lbImg.src = "";
       resetZoom();
     }
-
     function prev() { openAt(idx - 1); }
     function next() { openAt(idx + 1); }
 
-    qsa(".thumb").forEach(el => {
+    qsa(".thumb", galleryGrid).forEach(el => {
       el.addEventListener("click", () => openAt(Number(el.dataset.idx)));
     });
 
@@ -189,7 +189,7 @@
       if (e.key === "Escape") close();
       if (e.key === "ArrowLeft") prev();
       if (e.key === "ArrowRight") next();
-      if (e.key === "0") resetZoom(); // atajo: 0 resetea
+      if (e.key === "0") resetZoom();
     });
 
     // Zoom con rueda
@@ -197,28 +197,24 @@
       if (!lb.classList.contains("open")) return;
       e.preventDefault();
 
-      const delta = -e.deltaY;
-      const zoomFactor = delta > 0 ? 1.12 : 0.89;
-
+      const zoomFactor = e.deltaY < 0 ? 1.12 : 0.89;
       const prevScale = scale;
       scale = Math.max(1, Math.min(6, scale * zoomFactor));
 
-      // Zoom hacia el punto del ratón (aprox)
+      // Ajuste suave de pan al zoom hacia el cursor
       const rect = viewport.getBoundingClientRect();
       const mx = e.clientX - (rect.left + rect.width / 2);
       const my = e.clientY - (rect.top + rect.height / 2);
-
-      // Ajuste de pan para que “acompañe” al zoom
       if (scale !== prevScale) {
-        tx = tx + mx * (scale - prevScale) * 0.15;
-        ty = ty + my * (scale - prevScale) * 0.15;
+        tx += mx * (scale - prevScale) * 0.10;
+        ty += my * (scale - prevScale) * 0.10;
       }
 
       clampPan();
       applyTransform();
     }, { passive: false });
 
-    // Drag para mover cuando hay zoom
+    // Drag para mover (solo si zoom>1)
     viewport.addEventListener("mousedown", (e) => {
       if (!lb.classList.contains("open")) return;
       if (scale <= 1) return;
@@ -226,7 +222,6 @@
       startX = e.clientX - tx;
       startY = e.clientY - ty;
     });
-
     window.addEventListener("mousemove", (e) => {
       if (!isDragging) return;
       tx = e.clientX - startX;
@@ -234,22 +229,16 @@
       clampPan();
       applyTransform();
     });
+    window.addEventListener("mouseup", () => { isDragging = false; });
 
-    window.addEventListener("mouseup", () => {
-      isDragging = false;
-    });
-
-    // Doble click: toggle zoom 1 <-> 2.5 (y reset pan)
-    viewport.addEventListener("dblclick", (e) => {
+    // Doble click toggle zoom
+    viewport.addEventListener("dblclick", () => {
       if (!lb.classList.contains("open")) return;
       if (scale === 1) scale = 2.5;
       else scale = 1;
       tx = 0; ty = 0;
+      clampPan();
       applyTransform();
     });
-
-    // Si se cambia de imagen (prev/next), resetea zoom
-    lbPrev.addEventListener("click", resetZoom);
-    lbNext.addEventListener("click", resetZoom);
   }
 })();
