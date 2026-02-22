@@ -1,173 +1,121 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Padre de Elisa | Galería</title>
+  <meta name="description" content="Galería artística de Padre de Elisa. Colecciones organizadas de pintura contemporánea." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-body {
-    font-family: 'Helvetica Neue', sans-serif;
-    background: #0f0f0f;
-    color: white;
-}
+  <header class="hero" id="inicio">
+    <nav class="navbar">
+      <div class="logo">Padre de Elisa</div>
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#colecciones">Colecciones</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
 
-/* =======================
-   NAVBAR
-======================= */
+    <div class="slideshow">
+      <img src="images/hero-1.jpg" class="active" alt="">
+      <img src="images/hero-2.jpg" alt="">
+      <img src="images/hero-3.jpg" alt="">
+    </div>
 
-.navbar {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    padding: 25px 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
-}
+    <div class="hero-overlay"></div>
 
-.navbar .logo {
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    font-weight: 500;
-}
+    <div class="hero-content">
+      <h1>Padre de Elisa</h1>
+      <p>Exploración artística en cinco colecciones</p>
+      <a href="#colecciones" class="btn">Ver Colecciones</a>
+    </div>
+  </header>
 
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 40px;
-}
+  <main>
+    <section id="colecciones" class="section">
+      <div class="section-head">
+        <h2>Colecciones</h2>
+        <p>Selecciona una colección para ver todas sus obras.</p>
+      </div>
 
-.navbar a {
-    text-decoration: none;
-    color: white;
-    font-size: 0.9rem;
-    opacity: 0.85;
-    transition: 0.3s ease;
-}
+      <div class="collection-grid">
+        <a class="collection-card" href="coleccion-1.html">
+          <img src="images/c1-portada.jpg" alt="Colección I">
+          <div class="overlay"></div>
+          <div class="label">
+            <h3>Colección I</h3>
+            <span>Ver obras</span>
+          </div>
+        </a>
 
-.navbar a:hover {
-    opacity: 1;
-}
+        <a class="collection-card" href="coleccion-2.html">
+          <img src="images/c2-portada.jpg" alt="Colección II">
+          <div class="overlay"></div>
+          <div class="label">
+            <h3>Colección II</h3>
+            <span>Ver obras</span>
+          </div>
+        </a>
 
-/* =======================
-   HERO
-======================= */
+        <a class="collection-card" href="coleccion-3.html">
+          <img src="images/c3-portada.jpg" alt="Colección III">
+          <div class="overlay"></div>
+          <div class="label">
+            <h3>Colección III</h3>
+            <span>Ver obras</span>
+          </div>
+        </a>
 
-.hero {
-    position: relative;
-    height: 75vh;
-    overflow: hidden;
-}
+        <a class="collection-card" href="coleccion-4.html">
+          <img src="images/c4-portada.jpg" alt="Colección IV">
+          <div class="overlay"></div>
+          <div class="label">
+            <h3>Colección IV</h3>
+            <span>Ver obras</span>
+          </div>
+        </a>
 
-.slideshow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
+        <a class="collection-card" href="coleccion-5.html">
+          <img src="images/c5-portada.jpg" alt="Colección V">
+          <div class="overlay"></div>
+          <div class="label">
+            <h3>Colección V</h3>
+            <span>Ver obras</span>
+          </div>
+        </a>
+      </div>
+    </section>
 
-.slideshow img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1.5s ease;
-}
+    <section id="contacto" class="section section-narrow">
+      <div class="section-head">
+        <h2>Contacto</h2>
+        <p>Para información sobre obras o exposiciones.</p>
+      </div>
 
-.slideshow img.active {
-    opacity: 1;
-}
+      <div class="contact-box">
+        <p>Email: <a href="mailto:correo@email.com">correo@email.com</a></p>
+        <p>Instagram: <a href="#" target="_blank" rel="noopener">@usuario</a></p>
+      </div>
+    </section>
+  </main>
 
-.hero-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.75);
-}
+  <footer class="footer">
+    <p>© 2026 Padre de Elisa</p>
+  </footer>
 
-.hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    top: 50%;
-    transform: translateY(-50%);
-}
+  <script>
+    // Slideshow hero
+    const slides = document.querySelectorAll(".slideshow img");
+    let i = 0;
+    setInterval(() => {
+      slides[i].classList.remove("active");
+      i = (i + 1) % slides.length;
+      slides[i].classList.add("active");
+    }, 4500);
+  </script>
 
-.hero h1 {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-}
-
-.hero p {
-    margin-bottom: 30px;
-    opacity: 0.85;
-}
-
-.btn {
-    padding: 12px 28px;
-    border: 1px solid white;
-    text-decoration: none;
-    color: white;
-    transition: 0.3s ease;
-}
-
-.btn:hover {
-    background: white;
-    color: black;
-}
-
-/* =======================
-   COLECCIONES
-======================= */
-
-.colecciones {
-    padding: 80px 10%;
-}
-
-.colecciones h2 {
-    text-align: center;
-    margin-bottom: 50px;
-    font-size: 2rem;
-    letter-spacing: 1px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
-}
-
-.card {
-    position: relative;
-    overflow: hidden;
-    height: 280px;
-    cursor: pointer;
-}
-
-.card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.card:hover img {
-    transform: scale(1.08);
-}
-
-.card .overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.65);
-}
-
-.card h3 {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    z-index: 2;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-}
+</body>
+</html>
