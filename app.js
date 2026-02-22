@@ -3,9 +3,6 @@
   const DATA = window.MUSEO_DATA;
   if (!DATA) return;
 
-  // ==============
-  // Utilidades
-  // ==============
   function qs(sel) { return document.querySelector(sel); }
   function qsa(sel) { return Array.from(document.querySelectorAll(sel)); }
   function getParam(name) {
@@ -13,12 +10,20 @@
     return url.searchParams.get(name);
   }
 
-  // ==============
-  // Menú móvil (hamburger)
-  // ==============
+  // Navbar scrolled effect (sin línea)
+  const navbar = qs("#navbar");
+  if (navbar) {
+    const onScroll = () => {
+      if (window.scrollY > 20) navbar.classList.add("scrolled");
+      else navbar.classList.remove("scrolled");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  // Menú móvil
   const hamburger = qs("#hamburger");
   const navMenu = qs("#navMenu");
-
   if (hamburger && navMenu) {
     function closeMenu() {
       navMenu.classList.remove("open");
@@ -30,7 +35,6 @@
       hamburger.classList.toggle("open", open);
       hamburger.setAttribute("aria-expanded", String(open));
     }
-
     hamburger.addEventListener("click", toggleMenu);
     qsa("#navMenu a").forEach(a => a.addEventListener("click", closeMenu));
     window.addEventListener("resize", () => {
@@ -38,14 +42,10 @@
     });
   }
 
-  // ==============
-  // LANDING: Slideshow + Colecciones (index.html)
-  // ==============
+  // LANDING
   const slideshow = qs("#slideshow");
   const collectionsGrid = qs("#collectionsGrid");
-
   if (slideshow && collectionsGrid) {
-    // Textos
     const brand = qs("#brand");
     const heroTitle = qs("#heroTitle");
     const heroTagline = qs("#heroTagline");
@@ -56,7 +56,6 @@
     if (heroTagline) heroTagline.textContent = DATA.tagline;
     if (footerArtist) footerArtist.textContent = DATA.artist;
 
-    // Slideshow
     slideshow.innerHTML = DATA.heroSlides
       .map((src, idx) => `<img src="${src}" class="${idx === 0 ? "active" : ""}" alt="">`)
       .join("");
@@ -69,7 +68,6 @@
       slides[i].classList.add("active");
     }, 4500);
 
-    // Colecciones (automático)
     collectionsGrid.innerHTML = DATA.collections.map(c => {
       const href = `coleccion.html?c=${encodeURIComponent(c.id)}`;
       return `
@@ -85,16 +83,14 @@
     }).join("");
   }
 
-  // ==============
-  // COLECCIÓN: Render + Lightbox (coleccion.html?c=c1)
-  // ==============
+  // COLECCIÓN + LIGHTBOX
   const galleryGrid = qs("#galleryGrid");
   const collectionTitle = qs("#collectionTitle");
   const collectionDesc = qs("#collectionDesc");
   const pageBrand = qs("#pageBrand");
 
-  if (galleryGrid && collectionTitle && pageBrand) {
-    pageBrand.textContent = DATA.artist;
+  if (galleryGrid && collectionTitle) {
+    if (pageBrand) pageBrand.textContent = DATA.artist;
 
     const cId = getParam("c") || DATA.collections[0]?.id;
     const col = DATA.collections.find(x => x.id === cId) || DATA.collections[0];
@@ -105,12 +101,11 @@
     collectionDesc.textContent = col.description || "Pulsa una miniatura para ampliar.";
 
     galleryGrid.innerHTML = works.map((w, idx) => `
-      <div class="thumb" data-idx="${idx}" data-full="${w.full}" data-left="${w.title}" data-right="${[w.tech, w.year, w.size].filter(Boolean).join(" · ")}">
+      <div class="thumb" data-idx="${idx}">
         <img src="${w.thumb}" alt="${w.title}">
       </div>
     `).join("");
 
-    // Lightbox
     const lb = qs("#lightbox");
     const lbImg = qs("#lbImg");
     const lbLeft = qs("#lbLeft");
@@ -122,6 +117,7 @@
     let idx = 0;
 
     function openAt(i) {
+      if (!works.length) return;
       idx = (i + works.length) % works.length;
       const w = works[idx];
       lbImg.src = w.full;
