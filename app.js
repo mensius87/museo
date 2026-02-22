@@ -10,7 +10,7 @@
     return url.searchParams.get(name);
   }
 
-  // Navbar scrolled effect
+  // Navbar scrolled
   const navbar = document.getElementById("navbar");
   if (navbar) {
     const onScroll = () => {
@@ -21,7 +21,7 @@
     onScroll();
   }
 
-  // Menú móvil: robusto (funciona en index y coleccion)
+  // Menú móvil (funciona en todas las páginas)
   const navRoot = qs("[data-nav]");
   if (navRoot) {
     const hamburger = qs("[data-hamburger]", navRoot);
@@ -38,14 +38,13 @@
         hamburger.classList.toggle("open", open);
         hamburger.setAttribute("aria-expanded", String(open));
       }
-
       hamburger.addEventListener("click", toggleMenu);
       qsa("a", navMenu).forEach(a => a.addEventListener("click", closeMenu));
       window.addEventListener("resize", () => { if (window.innerWidth > 720) closeMenu(); });
     }
   }
 
-  // LANDING
+  // Landing
   const slideshow = document.getElementById("slideshow");
   const collectionsGrid = document.getElementById("collectionsGrid");
 
@@ -80,15 +79,13 @@
         <a class="collection-card" href="${href}">
           <img src="${c.cover}" alt="${c.name}">
           <div class="overlay"></div>
-          <div class="label">
-            <h3>${c.name}</h3>
-          </div>
+          <div class="label"><h3>${c.name}</h3></div>
         </a>
       `;
     }).join("");
   }
 
-  // COLECCIÓN + LIGHTBOX + ZOOM
+  // Colección + Lightbox + zoom/drag (mouse + touch)
   const galleryGrid = document.getElementById("galleryGrid");
   const collectionTitle = document.getElementById("collectionTitle");
   const collectionDesc = document.getElementById("collectionDesc");
@@ -122,10 +119,10 @@
 
     let idx = 0;
 
-    // Zoom state
     let scale = 1;
     let tx = 0;
     let ty = 0;
+
     let isDragging = false;
     let startX = 0;
     let startY = 0;
@@ -133,6 +130,7 @@
     function applyTransform() {
       lbImg.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
     }
+
     function resetZoom() {
       scale = 1;
       tx = 0;
@@ -141,7 +139,6 @@
     }
 
     function clampPan() {
-      // Pan simple: limita desplazamiento según zoom y viewport
       const rect = viewport.getBoundingClientRect();
       const maxX = (rect.width * (scale - 1)) / 2;
       const maxY = (rect.height * (scale - 1)) / 2;
@@ -169,6 +166,7 @@
       lbImg.src = "";
       resetZoom();
     }
+
     function prev() { openAt(idx - 1); }
     function next() { openAt(idx + 1); }
 
@@ -192,29 +190,20 @@
       if (e.key === "0") resetZoom();
     });
 
-    // Zoom con rueda
+    // Zoom con rueda (desktop)
     viewport.addEventListener("wheel", (e) => {
       if (!lb.classList.contains("open")) return;
       e.preventDefault();
-
       const zoomFactor = e.deltaY < 0 ? 1.12 : 0.89;
       const prevScale = scale;
       scale = Math.max(1, Math.min(6, scale * zoomFactor));
-
-      // Ajuste suave de pan al zoom hacia el cursor
-      const rect = viewport.getBoundingClientRect();
-      const mx = e.clientX - (rect.left + rect.width / 2);
-      const my = e.clientY - (rect.top + rect.height / 2);
       if (scale !== prevScale) {
-        tx += mx * (scale - prevScale) * 0.10;
-        ty += my * (scale - prevScale) * 0.10;
+        clampPan();
+        applyTransform();
       }
-
-      clampPan();
-      applyTransform();
     }, { passive: false });
 
-    // Drag para mover (solo si zoom>1)
+    // Drag (mouse)
     viewport.addEventListener("mousedown", (e) => {
       if (!lb.classList.contains("open")) return;
       if (scale <= 1) return;
@@ -231,14 +220,37 @@
     });
     window.addEventListener("mouseup", () => { isDragging = false; });
 
-    // Doble click toggle zoom
-    viewport.addEventListener("dblclick", () => {
+    // Drag (touch 1 dedo) + doble tap toggle zoom (simple)
+    let lastTap = 0;
+    viewport.addEventListener("touchstart", (e) => {
       if (!lb.classList.contains("open")) return;
-      if (scale === 1) scale = 2.5;
-      else scale = 1;
-      tx = 0; ty = 0;
+
+      const now = Date.now();
+      if (now - lastTap < 300) {
+        // doble tap: toggle zoom
+        scale = (scale === 1) ? 2.5 : 1;
+        tx = 0; ty = 0;
+        clampPan();
+        applyTransform();
+      }
+      lastTap = now;
+
+      if (e.touches.length === 1 && scale > 1) {
+        isDragging = true;
+        startX = e.touches[0].clientX - tx;
+        startY = e.touches[0].clientY - ty;
+      }
+    }, { passive: true });
+
+    viewport.addEventListener("touchmove", (e) => {
+      if (!isDragging) return;
+      if (e.touches.length !== 1) return;
+      tx = e.touches[0].clientX - startX;
+      ty = e.touches[0].clientY - startY;
       clampPan();
       applyTransform();
-    });
+    }, { passive: true });
+
+    viewport.addEventListener("touchend", () => { isDragging = false; }, { passive: true });
   }
 })();
