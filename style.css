@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  color: #111;
+  line-height: 1.6;
+}
+
+.hero {
+  text-align: center;
+  padding: 80px 20px 40px;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.hero p {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #555;
+}
+
+.gallery {
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+.card {
+  overflow: hidden;
+  transition: transform 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.4s ease;
+}
+
+.card:hover img {
+  opacity: 0.9;
+}
+
+.info {
+  margin-top: 15px;
+}
+
+.info h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.info p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.about, .contact {
+  width: 80%;
+  max-width: 800px;
+  margin: 80px auto;
+  text-align: center;
+}
+
+.about h2,
+.contact h2 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.about p,
+.contact p {
+  font-size: 1rem;
+  color: #444;
+}
+
+.contact a {
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid #000;
+  transition: opacity 0.3s ease;
+}
+
+.contact a:hover {
+  opacity: 0.6;
+}
+
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 0.8rem;
+  color: #777;
+}
