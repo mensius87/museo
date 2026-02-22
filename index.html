@@ -19,19 +19,28 @@
       </ul>
     </nav>
 
-    <div class="slideshow">
+    <div class="slideshow" aria-hidden="true">
+      <!-- Pon aquí tus mejores fotos / cuadros (hero) -->
       <img src="images/hero-1.jpg" class="active" alt="">
       <img src="images/hero-2.jpg" alt="">
       <img src="images/hero-3.jpg" alt="">
     </div>
 
-    <div class="hero-overlay"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
 
     <div class="hero-content">
       <h1>Padre de Elisa</h1>
       <p>Exploración artística en cinco colecciones</p>
-      <a href="#colecciones" class="btn">Ver Colecciones</a>
+      <div class="hero-actions">
+        <a href="#colecciones" class="btn">Ver Colecciones</a>
+        <a href="#contacto" class="btn btn-ghost">Contacto</a>
+      </div>
     </div>
+
+    <!-- Indicador premium de scroll -->
+    <a href="#colecciones" class="scroll-indicator" aria-label="Bajar a colecciones">
+      <span class="scroll-dot"></span>
+    </a>
   </header>
 
   <main>
@@ -107,9 +116,10 @@
   </footer>
 
   <script>
-    // Slideshow hero
+    // Slideshow hero (suave)
     const slides = document.querySelectorAll(".slideshow img");
     let i = 0;
+
     setInterval(() => {
       slides[i].classList.remove("active");
       i = (i + 1) % slides.length;
