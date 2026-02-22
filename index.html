@@ -3,13 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Padre de Elisa | Galería</title>
+<title>Padre de Elisa</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="hero">
+    <div class="slideshow">
+        <img src="images/1.jpg" class="active">
+        <img src="images/2.jpg">
+        <img src="images/3.jpg">
+    </div>
+
     <div class="hero-overlay"></div>
+
     <div class="hero-content">
         <h1>Padre de Elisa</h1>
         <p>Exploración artística en cinco colecciones</p>
@@ -21,39 +28,48 @@
     <h2>Colecciones</h2>
 
     <div class="grid">
-
-        <a href="coleccion1.html" class="card">
-            <img src="images/1.jpg" alt="">
+        <div class="card">
+            <img src="images/1.jpg">
             <div class="overlay"></div>
             <h3>Colección I</h3>
-        </a>
+        </div>
 
-        <a href="coleccion2.html" class="card">
-            <img src="images/2.jpg" alt="">
+        <div class="card">
+            <img src="images/2.jpg">
             <div class="overlay"></div>
             <h3>Colección II</h3>
-        </a>
+        </div>
 
-        <a href="coleccion3.html" class="card">
-            <img src="images/3.jpg" alt="">
+        <div class="card">
+            <img src="images/3.jpg">
             <div class="overlay"></div>
             <h3>Colección III</h3>
-        </a>
+        </div>
 
-        <a href="coleccion4.html" class="card">
-            <img src="images/4.jpg" alt="">
+        <div class="card">
+            <img src="images/4.jpg">
             <div class="overlay"></div>
             <h3>Colección IV</h3>
-        </a>
+        </div>
 
-        <a href="coleccion5.html" class="card">
-            <img src="images/5.jpg" alt="">
+        <div class="card">
+            <img src="images/5.jpg">
             <div class="overlay"></div>
             <h3>Colección V</h3>
-        </a>
-
+        </div>
     </div>
 </section>
+
+<script>
+const slides = document.querySelectorAll(".slideshow img");
+let index = 0;
+
+setInterval(() => {
+    slides[index].classList.remove("active");
+    index = (index + 1) % slides.length;
+    slides[index].classList.add("active");
+}, 4000);
+</script>
 
 </body>
 </html>
