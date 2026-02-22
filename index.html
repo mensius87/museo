@@ -4,40 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Padre de Elisa | Galería</title>
-  <meta name="description" content="Galería artística de Padre de Elisa. Colecciones organizadas de pintura contemporánea." />
+  <meta name="description" content="Galería artística organizada por colecciones." />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <header class="hero" id="inicio">
     <nav class="navbar">
-      <div class="logo">Padre de Elisa</div>
-      <ul>
+      <div class="logo" id="brand">Padre de Elisa</div>
+
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="navlinks" id="navMenu">
         <li><a href="#inicio">Inicio</a></li>
         <li><a href="#colecciones">Colecciones</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
 
-    <div class="slideshow" aria-hidden="true">
-      <!-- Pon aquí tus mejores fotos / cuadros (hero) -->
-      <img src="images/hero-1.jpg" class="active" alt="">
-      <img src="images/hero-2.jpg" alt="">
-      <img src="images/hero-3.jpg" alt="">
-    </div>
-
+    <div class="slideshow" id="slideshow" aria-hidden="true"></div>
     <div class="hero-overlay" aria-hidden="true"></div>
 
     <div class="hero-content">
-      <h1>Padre de Elisa</h1>
-      <p>Exploración artística en cinco colecciones</p>
+      <h1 id="heroTitle">Padre de Elisa</h1>
+      <p id="heroTagline">Exploración artística en colecciones</p>
+
       <div class="hero-actions">
         <a href="#colecciones" class="btn">Ver Colecciones</a>
         <a href="#contacto" class="btn btn-ghost">Contacto</a>
       </div>
     </div>
 
-    <!-- Indicador premium de scroll -->
     <a href="#colecciones" class="scroll-indicator" aria-label="Bajar a colecciones">
       <span class="scroll-dot"></span>
     </a>
@@ -50,52 +49,7 @@
         <p>Selecciona una colección para ver todas sus obras.</p>
       </div>
 
-      <div class="collection-grid">
-        <a class="collection-card" href="coleccion-1.html">
-          <img src="images/c1-portada.jpg" alt="Colección I">
-          <div class="overlay"></div>
-          <div class="label">
-            <h3>Colección I</h3>
-            <span>Ver obras</span>
-          </div>
-        </a>
-
-        <a class="collection-card" href="coleccion-2.html">
-          <img src="images/c2-portada.jpg" alt="Colección II">
-          <div class="overlay"></div>
-          <div class="label">
-            <h3>Colección II</h3>
-            <span>Ver obras</span>
-          </div>
-        </a>
-
-        <a class="collection-card" href="coleccion-3.html">
-          <img src="images/c3-portada.jpg" alt="Colección III">
-          <div class="overlay"></div>
-          <div class="label">
-            <h3>Colección III</h3>
-            <span>Ver obras</span>
-          </div>
-        </a>
-
-        <a class="collection-card" href="coleccion-4.html">
-          <img src="images/c4-portada.jpg" alt="Colección IV">
-          <div class="overlay"></div>
-          <div class="label">
-            <h3>Colección IV</h3>
-            <span>Ver obras</span>
-          </div>
-        </a>
-
-        <a class="collection-card" href="coleccion-5.html">
-          <img src="images/c5-portada.jpg" alt="Colección V">
-          <div class="overlay"></div>
-          <div class="label">
-            <h3>Colección V</h3>
-            <span>Ver obras</span>
-          </div>
-        </a>
-      </div>
+      <div class="collection-grid" id="collectionsGrid"></div>
     </section>
 
     <section id="contacto" class="section section-narrow">
@@ -112,20 +66,10 @@
   </main>
 
   <footer class="footer">
-    <p>© 2026 Padre de Elisa</p>
+    <p>© 2026 <span id="footerArtist">Padre de Elisa</span></p>
   </footer>
 
-  <script>
-    // Slideshow hero (suave)
-    const slides = document.querySelectorAll(".slideshow img");
-    let i = 0;
-
-    setInterval(() => {
-      slides[i].classList.remove("active");
-      i = (i + 1) % slides.length;
-      slides[i].classList.add("active");
-    }, 4500);
-  </script>
-
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
