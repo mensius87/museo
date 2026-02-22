@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Colección | Padre de Elisa</title>
+  <meta name="description" content="Galería de colección." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page">
+
+  <header class="page-head">
+    <div class="page-top">
+      <a class="backlink" href="index.html#colecciones">← Volver</a>
+      <div class="page-brand" id="pageBrand">Padre de Elisa</div>
+    </div>
+
+    <div class="page-title">
+      <h1 id="collectionTitle">Colección</h1>
+      <p id="collectionDesc">Pulsa una miniatura para ampliar.</p>
+    </div>
+  </header>
+
+  <main class="gallery">
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-inner" role="dialog" aria-modal="true">
+      <button class="lb-prev" id="lbPrev" type="button" aria-label="Anterior">←</button>
+      <button class="lb-next" id="lbNext" type="button" aria-label="Siguiente">→</button>
+      <button class="lb-close" id="lbClose" type="button" aria-label="Cerrar">✕</button>
+
+      <div class="lightbox-media">
+        <img id="lbImg" src="" alt="">
+      </div>
+
+      <div class="lightbox-caption">
+        <div id="lbLeft">Obra</div>
+        <div id="lbRight"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
