@@ -9,14 +9,14 @@
 </head>
 <body class="page">
 
-  <nav class="navbar" id="navbar">
+  <nav class="navbar navbar-page" id="navbar" data-nav>
     <div class="logo" id="pageBrand">Padre de Elisa</div>
 
-    <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navMenu">
+    <button class="hamburger" data-hamburger aria-label="Abrir menú" aria-expanded="false" aria-controls="navMenu">
       <span></span><span></span><span></span>
     </button>
 
-    <ul class="navlinks" id="navMenu">
+    <ul class="navlinks" id="navMenu" data-navmenu>
       <li><a href="index.html#inicio">Inicio</a></li>
       <li><a href="index.html#colecciones">Colecciones</a></li>
       <li><a href="index.html#contacto">Contacto</a></li>
@@ -26,7 +26,7 @@
   <header class="page-head">
     <div class="page-title">
       <h1 id="collectionTitle">Colección</h1>
-      <p id="collectionDesc">Pulsa una miniatura para ampliar. Usa la rueda para zoom.</p>
+      <p id="collectionDesc">Pulsa una miniatura para ampliar. Rueda: zoom. Doble clic: zoom/reset.</p>
       <a class="backlink" href="index.html#colecciones">← Volver a colecciones</a>
     </div>
   </header>
@@ -38,15 +38,24 @@
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lightbox-inner" role="dialog" aria-modal="true">
-      <button class="lb-prev" id="lbPrev" type="button" aria-label="Anterior">←</button>
-      <button class="lb-next" id="lbNext" type="button" aria-label="Siguiente">→</button>
+
+      <!-- Flechas en columnas laterales -->
+      <button class="lb-side lb-prev" id="lbPrev" type="button" aria-label="Anterior">
+        <span>←</span>
+      </button>
+
+      <button class="lb-side lb-next" id="lbNext" type="button" aria-label="Siguiente">
+        <span>→</span>
+      </button>
+
       <button class="lb-close" id="lbClose" type="button" aria-label="Cerrar">✕</button>
 
-      <!-- Contenedor de zoom -->
+      <!-- Viewport de zoom -->
       <div class="lightbox-media" id="lbViewport">
         <img id="lbImg" src="" alt="">
       </div>
 
+      <!-- Caption SUPERPUESTO (no roba altura a la imagen) -->
       <div class="lightbox-caption">
         <div id="lbLeft">Obra</div>
         <div id="lbRight"></div>
