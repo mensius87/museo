@@ -14,12 +14,27 @@ body {
 
 .hero {
     position: relative;
-    height: 100vh;
-    background: url("images/1.jpg") center/cover no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    height: 75vh;
+    overflow: hidden;
+}
+
+.slideshow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.slideshow img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+.slideshow img.active {
+    opacity: 1;
 }
 
 .hero-overlay {
@@ -32,18 +47,19 @@ body {
 .hero-content {
     position: relative;
     z-index: 2;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .hero h1 {
     font-size: 4rem;
-    letter-spacing: 3px;
     margin-bottom: 20px;
 }
 
 .hero p {
-    font-size: 1.2rem;
     margin-bottom: 30px;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 .btn {
@@ -62,27 +78,24 @@ body {
 /* COLECCIONES */
 
 .colecciones {
-    padding: 100px 10%;
+    padding: 80px 10%;
 }
 
 .colecciones h2 {
     text-align: center;
-    margin-bottom: 60px;
-    font-size: 2rem;
+    margin-bottom: 50px;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
 }
 
 .card {
     position: relative;
     overflow: hidden;
-    height: 350px;
-    text-decoration: none;
-    color: white;
+    height: 280px;
 }
 
 .card img {
@@ -93,7 +106,7 @@ body {
 }
 
 .card:hover img {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
 .card .overlay {
@@ -105,8 +118,7 @@ body {
 
 .card h3 {
     position: absolute;
-    bottom: 30px;
-    left: 30px;
-    font-size: 1.4rem;
+    bottom: 20px;
+    left: 20px;
     z-index: 2;
 }
