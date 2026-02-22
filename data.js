@@ -15,11 +15,11 @@ window.MUSEO_DATA = {
   // Colecciones (portadas)
   // IMPORTANTE: estas rutas deben existir.
   collections: [
-    { id: "c1", name: "Colección I",  cover: "images/1.jpg", description: "Descripción breve (opcional)." },
-    { id: "c2", name: "Colección II", cover: "images/2.jpg", description: "Descripción breve (opcional)." },
-    { id: "c3", name: "Colección III",cover: "images/3.jpg", description: "Descripción breve (opcional)." },
-    { id: "c4", name: "Colección IV", cover: "images/4.jpg", description: "Descripción breve (opcional)." },
-    { id: "c5", name: "Colección V",  cover: "images/5.jpg", description: "Descripción breve (opcional)." },
+    { id: "c1", name: "Colección I",  cover: "images/c1-portada.jpg", description: "Descripción breve (opcional)." },
+    { id: "c2", name: "Colección II", cover: "images/c2-portada.jpg", description: "Descripción breve (opcional)." },
+    { id: "c3", name: "Colección III",cover: "images/c3-portada.jpg", description: "Descripción breve (opcional)." },
+    { id: "c4", name: "Colección IV", cover: "images/c4-portada.jpg", description: "Descripción breve (opcional)." },
+    { id: "c5", name: "Colección V",  cover: "images/c5-portada.jpg", description: "Descripción breve (opcional)." },
   ],
 
   // Obras (ejemplos) — cambia a tus rutas reales
